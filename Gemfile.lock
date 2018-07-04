@@ -1,0 +1,23 @@
+GIT
+  remote: https://github.com/alexfcdp/codebreaker
+  revision: b5af747c39fde1bf4139af0bfd7a69641ded8fa3
+  branch: feature/myfeature
+  specs:
+    codebreaker (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    puma (3.11.4)
+    rack (2.0.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  codebreaker!
+  puma
+  rack
+
+BUNDLED WITH
+   1.16.2

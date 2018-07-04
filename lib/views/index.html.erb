@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
+  <link rel="icon" href="/images/favicon.ico">
+  <title>Welcome</title>
+</head>
+<body>
+<div class="wrapper" style="width: 30%">
+  <h1>Codebreaker</h1>
+  <form method="post" action="/play">
+    <div class="input-group mb-3">
+      <input name="name_player" type="text" class="form-control" placeholder="Enter your name" >
+      <div class="input-group-append">
+        <input class="btn btn-primary" type="submit" value="P l a y">
+      </div>
+    </div>
+    <a class="btn btn-info" href="/scores" role="button">Scores</a>
+  </form>
+</div>
+</body>
+</html>

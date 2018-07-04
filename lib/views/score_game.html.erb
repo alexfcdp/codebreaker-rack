@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
+  <link rel="icon" href="/images/favicon.ico">
+  <title>Score game</title>
+</head>
+<body>
+<div class="wrapper" style="width: 60%">
+  <div style="margin: 0 auto; width: 300px; padding-bottom: 20px" >
+      <% if game.win? then %> <img src='../images/win.gif' alt=""/>
+      <% else %> <img src='../images/lose.gif'alt=""/>
+      <% end %>
+  </div>
+  <table class="table table-borderless" style="font-family:sans-serif; color: midnightblue">
+    <thead>
+    <% color_head = COLOR_TABLE_ROWS.sample%>
+    <tr>
+      <th class="<%=color_head%>" style="text-align: center" scope="col">#</th>
+      <% unless score_game.nil? then
+           score_game.each do |key, _value| %>
+          <th class="<%=color_head%>" scope="col"><%= key %></th>
+        <% end %>
+      <% end %>
+    </tr>
+    </thead>
+    <tbody>
+    <% color_body = COLOR_TABLE_ROWS.sample%>
+    <th class="<%=color_head%>" style="text-align: center" scope="row">1</th>
+      <% unless score_game.nil? then
+           score_game.each do |_key, value| %>
+            <td class="<%=color_body%>"><%= value %></td>
+          <% end %>
+      <% end %>
+      </tbody>
+  </table>
+  <div>
+    <a class="btn btn-info" href="/" role="button">Home Page</a>
+    <a class="btn btn-info" href="/scores" role="button">Scores</a>
+  </div>
+</div>
+</body>
+</html>
