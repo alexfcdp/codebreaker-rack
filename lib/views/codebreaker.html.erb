@@ -25,10 +25,13 @@
         <div class="input-group-append">
           <input class="btn btn-warning" type="submit" value="H i n t" style="width: 100px">
         </div>
-        <input type="text" class="form-control" placeholder="****" value="<%= hint %>" disabled>
+        <input type="text" class="form-control" value="<%= hint %>" style="width: auto"
+               placeholder="You can use <%= Game::COUNT_HINT %> hint" disabled>
+        <input type="text" class="form-control" value="<%= count_hint %>" style="text-align: center" disabled>
       </div>
       <h4 style="color: orangered">You used <%= attempts_count %> attempts</h4>
     </form>
+  <% if result_of_step.any? %>
     <div class="form">
       <h5 style="color: #1873b9">Attempts:</h5>
       <table class="table table-borderless" style="font-family:sans-serif; font-size: 18px;color: #bc1db8">
@@ -42,6 +45,8 @@
         </tbody>
       </table>
     </div>
+  <% end %>
+  <a class="btn btn-info" style="margin-top: 10px" href="/" role="button">Exit the game</a>
 </div>
 </body>
 </html>

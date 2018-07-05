@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'constants'
 
 class Filter
@@ -53,7 +55,7 @@ class Filter
   end
 
   def game_over?
-    return false if game.nil? || game.player_code == ''
+    return false if game.player_code.nil?
     game.win? || game.loses_game?
   end
 

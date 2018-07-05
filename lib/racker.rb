@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'erb'
 require 'yaml'
 require 'codebreaker'
@@ -12,6 +14,7 @@ class Racker
 
   def initialize(env)
     @request = Rack::Request.new(env)
+    new_file_path
   end
 
   def response
@@ -98,6 +101,10 @@ class Racker
     Game::SIZE_SECRET_CODE
   end
 
+  def count_hint
+    "#{game.count_help}/#{Game::COUNT_HINT}"
+  end
+
   def attempts_count
     "#{game.count_step}/#{Game::COUNT_MOVES}"
   end
@@ -106,5 +113,10 @@ class Racker
     Rack::Response.new do |response|
       response.redirect(path)
     end
+  end
+
+  def new_file_path
+    old_file_path = game.instance_variable_get(:@file_path)
+    game.instance_variable_set(:@file_path, NEW_FILE_PATH) unless old_file_path == NEW_FILE_PATH
   end
 end
