@@ -40,7 +40,13 @@
             <% color = COLOR_TABLE_ROWS[index]%>
             <td class="<%=color%>"><%= index+1 %> </td>
             <td class="<%=color%>"><%= value[:player_code] %></td>
-            <td class="<%=color%>"><%= value[:result] %></td>
+            <td class="<%=color%>"><% value[:result].each do |result| %>
+                <%if result=='+' then %><span class="badge badge-success"><%=result%></span>
+                <%elsif result=='-' then %><span class="badge badge-warning"><%=result%></span>
+                <%elsif result=='' then %><span class="badge badge-info">_</span>
+              <% end %>
+              <% end %>
+            </td>
           <% end %>
         </tbody>
       </table>

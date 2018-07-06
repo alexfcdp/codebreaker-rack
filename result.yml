@@ -13,3 +13,17 @@
   Used hint: 1/1
   Took steps: 5/5
   Secret code: '2165'
+- Name: Vasja
+  Time: 2018-07-06 09:31
+  Result: Win!
+  Score: 100
+  Used hint: 0/1
+  Took steps: 3/5
+  Secret code: '5424'
+- Name: Human
+  Time: 2018-07-06 09:33
+  Result: Game over!
+  Score: 40
+  Used hint: 1/1
+  Took steps: 5/5
+  Secret code: '2262'
