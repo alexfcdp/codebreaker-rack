@@ -1,0 +1,20 @@
+doctype html
+html lang="en" 
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    meta charset="utf-8" /
+    link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" /
+    link href="/stylesheets/application.css" rel="stylesheet" type="text/css" /
+    link href="/images/favicon.ico" rel="icon" /
+    title Welcome
+  body
+    .wrapper style=("width: 35%")
+      h1 Codebreaker
+      form action=PLAY method="post"
+        .input-group.mb-3
+          input.form-control name="name_player" placeholder=("Enter your name") type="text" /
+          .input-group-append
+            input.btn.btn-primary type="submit" value=("P l a y") /
+        a.btn.btn-info href="/scores" role="button"  Scores
+    div style=("margin: 0 auto; width: 598px; padding-top: 20px")
+      img alt="" src="../images/manual.jpg" /

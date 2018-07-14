@@ -1,0 +1,49 @@
+doctype html
+html lang="en" 
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    meta charset="utf-8" /
+    link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" /
+    link href="/stylesheets/application.css" rel="stylesheet" type="text/css" /
+    link href="/stylesheets/style.css" rel="stylesheet" type="text/css" /
+    link href="/images/favicon.ico" rel="icon" /
+    title Codebreaker
+  body
+    .wrapper style=("width: 40%")
+      form.form action=GUESS method="post"
+        h1 Codebreaker
+        h5 style=("color: tomato")
+          | Welcome #{name_player}
+        .form__field
+          input { maxlength="#{SIZE_SECRET_CODE}" name="player_code" pattern="^[1-6]{#{SIZE_SECRET_CODE}}$"
+          placeholder="#{INPUT_CONDITION}" required="" style=("text-align: center") type="code"} /
+          span.form__error= INPUT_CONDITION
+        input.btn.btn-success type="submit" value=("G u e s s") /
+      form.form action=HINT method="post"
+        .input-group.mb-3
+          .input-group-append
+            input.btn.btn-warning style=("width: 100px") type="submit" value=("H i n t") /
+          input.form-control { disabled="disabled" placeholder=("You can use #{COUNT_HINT} hint")
+          style=("width: auto") type="text" value=hint } /
+          input.form-control disabled="disabled" style=("text-align: center") type="text" value=count_hint /
+        h4 style=("color: orangered")
+          | You used #{attempts_count} attempts
+      - if result_of_step.any?
+        .form
+          h5 style=("color: #1873b9")  Attempts:
+          table.table.table-borderless style=("font-family:sans-serif; font-size: 18px;color: #bc1db8")
+            tbody
+              - result_of_step.each_with_index do |value, index|
+                tr
+                  - color = COLOR_TABLE_ROWS[index]
+                  td class=color = index + 1
+                  td class=color = value[:player_code]
+                  td class=color
+                   - value[:result].each do |result|
+                     - if result == EXACT_MATCH
+                      span.badge.badge-success style=("margin-left: 5px") = result
+                     - elsif result == NUMERICAL_MATCH
+                      span.badge.badge-warning style=("margin-left: 5px") = result
+                     - elsif result == NO_MATCHES
+                      span.badge.badge-danger style=("margin-left: 5px") _
+      a.btn.btn-info href="/" role="button" style=("margin-top: 10px")  Exit the game

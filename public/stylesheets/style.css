@@ -6,7 +6,7 @@ body {
 .form {
     display: inline-block;
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #bfbfbf;
     border-radius: 5px;
     width: 100%;
 }
@@ -29,7 +29,7 @@ body {
     display: block;
     width: 100%;
     border-radius: 2px;
-    border: 1px solid #ccc;
+    border: 2px solid #bfbfbf;
     padding: 10px;
     box-sizing: border-box;
 }
@@ -37,6 +37,7 @@ body {
 input:invalid:not(:placeholder-shown) {
     border-color: red;
 }
+
 input:invalid:not(:placeholder-shown) + .form__error {
     display: block;
 }

@@ -3,7 +3,12 @@
 source 'https://rubygems.org'
 
 gem 'codebreaker', git: 'https://github.com/alexfcdp/codebreaker', branch: 'feature/myfeature'
-
-gem 'rack'
-
 gem 'puma'
+gem 'rack'
+gem 'slim'
+
+group :test do
+  gem 'capybara'
+  gem 'rspec'
+  gem 'simplecov'
+end

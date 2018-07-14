@@ -10,28 +10,23 @@ class Filter
 
   def call(env)
     @request = Rack::Request.new(env)
-    path = @request.path.delete('/')
-    if include_path? && send("url_#{path}_access?".to_sym)
-      @app.call(env)
-    else
-      Rack::Response.new('Not Found', 404)
-    end
+    include_path? ? @app.call(env) : Rack::Response.new('Not Found', 404)
   end
 
   def include_path?
-    URL.each do |url|
-      return true if url.key?(@request.path)
-    end
-    false
+    return true if url_root_access?
+    path = url.delete(ROOT)
+    URLS.key?(url) && send("url_#{path}_access?".to_sym)
   end
 
-  def url__access?
+  def url_root_access?
+    return false unless url == ROOT
     @request.session.clear
     true
   end
 
   def url_guess_access?
-    @request.params['player_code'].nil? ? false : true
+    @request.params['player_code'] ? true : false
   end
 
   def url_hint_access?
@@ -39,7 +34,7 @@ class Filter
   end
 
   def url_play_access?
-    @request.params['name_player'].nil? ? false : true
+    @request.params['name_player'] ? true : false
   end
 
   def url_codebreaker_access?
@@ -55,12 +50,12 @@ class Filter
   end
 
   def game_over?
-    return false if game.player_code.nil?
+    return false unless game.player_code
     game.win? || game.loses_game?
   end
 
   def game_not_over?
-    result.is_a?(Array) && !game.loses_game? && !game.win?
+    result.is_a?(Array) unless game_over?
   end
 
   def game
@@ -69,5 +64,9 @@ class Filter
 
   def result
     @request.session[:result]
+  end
+
+  def url
+    @request.path
   end
 end

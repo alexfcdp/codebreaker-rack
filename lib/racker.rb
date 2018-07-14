@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require 'erb'
+require 'slim'
 require 'yaml'
 require 'codebreaker'
-require_relative 'constants'
 
 class Racker
   include Codebreaker
@@ -18,13 +17,7 @@ class Racker
   end
 
   def response
-    URL.each do |url|
-      if url.key?(@request.path)
-        is_symbol = url[@request.path].is_a? Symbol
-        return is_symbol ? send(url[@request.path]) : response_to(url[@request.path])
-      end
-    end
-    Rack::Response.new('Not Found', 404)
+    URLS.key?(url) ? URLS[url].call(self) : Rack::Response.new('Not Found', 404)
   end
 
   def response_to(template)
@@ -33,7 +26,7 @@ class Racker
 
   def render(template)
     path = File.expand_path("../views/#{template}", __FILE__)
-    ERB.new(File.read(path)).result(binding)
+    Slim::Template.new(path).render(self)
   end
 
   def play
@@ -41,21 +34,21 @@ class Racker
     @request.session[:hint] = nil
     @request.session[:name_player] = name_player
     game.start_game
-    redirect_to_url(CODEBREAKER.keys)
+    redirect_to_url(CODEBREAKER)
   end
 
   def name_player
     unless @request.params['name_player'].nil?
       name = @request.params['name_player'].capitalize
-      @request.session[:name_player] = name == '' ? View::PLAYER_NAME : name
+      @request.session[:name_player] = name == '' ? PLAYER_NAME : name
     end
     @request.session[:name_player]
   end
 
   def guess
-    @request.session[:result] << { player_code: player_code, result: game.guess }
-    path = result_saved? ? SCORE_GAME.keys : CODEBREAKER.keys
-    redirect_to_url(path)
+    return redirect_to_url(CODEBREAKER) unless code_valid?
+    @request.session[:result] << { player_code: game.player_code, result: game.guess.clone }
+    result_saved? ? redirect_to_url(SCORE_GAME) : redirect_to_url(CODEBREAKER)
   end
 
   def result_saved?
@@ -67,14 +60,15 @@ class Racker
     false
   end
 
-  def player_code
+  def code_valid?
     game.player_code = @request.params['player_code']
+    game.valid?
   end
 
   def show_hint
     help = game.hint
-    @request.session[:hint] = help.nil? ? NO_HINT : help
-    redirect_to_url(CODEBREAKER.keys)
+    @request.session[:hint] = help || NO_HINT
+    redirect_to_url(CODEBREAKER)
   end
 
   def hint
@@ -97,16 +91,12 @@ class Racker
     @request.session[:result]
   end
 
-  def size_code
-    Game::SIZE_SECRET_CODE
-  end
-
   def count_hint
-    "#{game.count_help}/#{Game::COUNT_HINT}"
+    "#{game.count_help}/#{COUNT_HINT}"
   end
 
   def attempts_count
-    "#{game.count_step}/#{Game::COUNT_MOVES}"
+    "#{game.count_step}/#{COUNT_MOVES}"
   end
 
   def redirect_to_url(path)
@@ -118,5 +108,9 @@ class Racker
   def new_file_path
     old_file_path = game.instance_variable_get(:@file_path)
     game.instance_variable_set(:@file_path, NEW_FILE_PATH) unless old_file_path == NEW_FILE_PATH
+  end
+
+  def url
+    @request.path
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'lib/racker'
 require_relative 'lib/filter'
 

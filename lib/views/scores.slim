@@ -1,0 +1,28 @@
+doctype html
+html lang="en"
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    meta charset="utf-8" /
+    link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" /
+    link href="/stylesheets/application.css" rel="stylesheet" type="text/css" /
+    link href="/images/favicon.ico" rel="icon" /
+    title Scores
+  body
+    .wrapper style=("width: 70%")
+      h1 Games results 'Codebreaker'
+      table.table.table-borderless style=("font-family:sans-serif; color: midnightblue")
+        thead
+          tr
+            th.table-dark scope="col" style=("text-align: center")  #
+            - unless scores.nil?
+               - scores[0].each do |key, _value|
+                 th.table-dark scope="col" = key
+        tbody
+            - unless scores.nil?
+             - scores.each_with_index do |values, index|
+              tr
+              - color = COLOR_TABLE_ROWS.sample
+              th.table-dark scope="row" style=("text-align: center") = index + 1
+              - values.each do |_key, value|
+                td class=color = value
+      a.btn.btn-info href="/" role="button"  Home Page

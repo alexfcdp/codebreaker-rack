@@ -2,16 +2,22 @@
 
 module Codebreaker
   NEW_FILE_PATH = File.expand_path('../result.yml', __dir__).freeze
-  NO_HINT = 'All hints are exhausted'
-  INPUT_CONDITION = "Enter the code from #{Game::SIZE_SECRET_CODE} numbers from 1 to 6"
   COLOR_TABLE_ROWS = %w[ table-success table-danger table-warning table-primary
                          table-active table-secondary table-info table-light].freeze
-  MAIN = { '/' => 'index.html.erb' }.freeze
-  CODEBREAKER = { '/codebreaker' => 'codebreaker.html.erb' }.freeze
-  SCORES = { '/scores' => 'scores.html.erb' }.freeze
-  SCORE_GAME = { '/score_game' => 'score_game.html.erb' }.freeze
-  PLAY = { '/play' => :play }.freeze
-  GUESS = { '/guess' => :guess }.freeze
-  HINT = { '/hint' => :show_hint }.freeze
-  URL = [MAIN, CODEBREAKER, SCORES, SCORE_GAME, PLAY, GUESS, HINT].freeze
+  ROOT = '/'
+  CODEBREAKER = '/codebreaker'
+  SCORES = '/scores'
+  SCORE_GAME = '/score_game'
+  PLAY = '/play'
+  GUESS = '/guess'
+  HINT = '/hint'
+  URLS = {
+    ROOT => ->(racker) { racker.response_to('index.slim') },
+    CODEBREAKER => ->(racker) { racker.response_to('codebreaker.slim') },
+    SCORES => ->(racker) { racker.response_to('scores.slim') },
+    SCORE_GAME => ->(racker) { racker.response_to('score_game.slim') },
+    PLAY => ->(racker) { racker.play },
+    GUESS => ->(racker) { racker.guess },
+    HINT => ->(racker) { racker.show_hint }
+  }.freeze
 end
