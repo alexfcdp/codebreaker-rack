@@ -1,0 +1,18 @@
+body {
+    background: url('../images/base.jpg');
+    font-family: sans-serif;
+    color: #544eff;
+    font-size: 14px;
+}
+
+.wrapper {
+    background: url('../images/img.jpg');
+    margin: 0 auto;
+    background-color: #FFF;
+    padding: 20px 40px;
+    border: solid 1px #000552;
+    margin-top: 50px;
+}
+
+P { text-align: left }
+H1 { text-align: center; }

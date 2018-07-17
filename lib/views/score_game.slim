@@ -1,0 +1,33 @@
+doctype html
+html lang="en" 
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    meta charset="utf-8" /
+    link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" /
+    link href="/stylesheets/application.css" rel="stylesheet" type="text/css" /
+    link href="/images/favicon.ico" rel="icon" /
+    title Score game
+  body
+    .wrapper style=("width: 60%")
+      div style=("margin: 0 auto; width: 300px; padding-bottom: 20px")
+        - if game.win? then
+          img alt="" src="../images/win.gif" /
+        - else
+          img alt="" src="../images/lose.gif" /
+      table.table.table-borderless id='score_game' style=("font-family:sans-serif; color: midnightblue")
+        thead
+          - color_head = COLOR_TABLE_ROWS.sample
+          tr
+            th class=color_head scope="col" style=("text-align: center")  #
+            - unless score_game.nil? then
+            - score_game.each do |key, _value|
+             th class=color_head scope="col" = key
+        tbody
+          - color_body = COLOR_TABLE_ROWS.sample
+          th class=color_head scope="row" style=("text-align: center")  1
+          - unless score_game.nil? then
+          - score_game.each do |_key, value|
+           td class=color_body = value
+      div
+        a.btn.btn-info href="/" role="button"  Home Page
+        a.btn.btn-info href="/scores" role="button" style=("margin-left: 10px")  Scores

@@ -1,0 +1,29 @@
+---
+- Name: Alexfcdp
+  Time: 2018-07-12 16:08
+  Result: Win!
+  Score: 100
+  Hint: 0/1
+  Steps: 2/5
+  Secret code: '1245'
+- Name: Player
+  Time: 2018-07-12 16:00
+  Result: Lose!
+  Score: 30
+  Hint: 0/1
+  Steps: 5/5
+  Secret code: '5256'
+- Name: Herring
+  Time: 2018-07-12 23:25
+  Result: Win!
+  Score: 100
+  Hint: 0/1
+  Steps: 2/5
+  Secret code: '1432'
+- Name: Varus
+  Time: 2018-07-14 13:25
+  Result: Win!
+  Score: 100
+  Hint: 1/1
+  Steps: 4/5
+  Secret code: '6366'
